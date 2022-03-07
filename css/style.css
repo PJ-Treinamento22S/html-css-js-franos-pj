@@ -1,0 +1,146 @@
+body {
+    display: flex;
+    flex-direction: row;
+    margin: 0%;
+}
+
+.sidebar {
+    padding: 2%;
+    padding-right: 2%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: #8B6FE3;
+
+}
+
+.sidemenus {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: baseline;
+
+    font-family: 'Poppins', sans-serif;
+    color: white;
+}
+
+.profile {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profilepic {
+    max-width: 35%;
+    height: auto;
+}
+
+.myProfileText {
+    font-weight: bold;
+    font-size: 150%;
+}
+
+.pageSelection {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: baseline;
+
+    margin-top: 20%;
+    margin-bottom: 20%;
+}
+
+.pageContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.pageName {
+    margin-left: 20%;
+    font-size: 140%;
+}
+
+.searchBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    background-color: white;
+    border-radius: 14px;
+
+    width: 94%;
+
+    padding-right: 2%;
+    padding-left: 4%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+
+.placeHolderSearchText {
+    padding: 0%;
+    margin: 0%;
+    margin-left: 6%;
+
+    color: #afa9a9;
+
+    font-style: italic;
+    font-size: 90%;
+}
+
+.piupiuwerLogo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+
+    margin-top: 35%;
+}
+
+
+#homePageText {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+#homeIcon {
+    width: 35%;
+    height: auto;
+}
+
+#notificationIcon {
+    width: 20%;
+    height: auto;
+}
+
+#trendingIcon {
+    width: 25%;
+    height: auto;
+}
+
+#toolIcon {
+    width: 20%;
+    height: auto;
+}
+
+#searchIcon {
+    width: 10%;
+    height: auto;
+
+    color: #8B6FE3;
+}
+
+#piupiuwerIcon {
+    width: 20%;
+    height: auto;
+}
