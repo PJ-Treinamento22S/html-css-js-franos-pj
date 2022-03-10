@@ -133,6 +133,8 @@ body {
     border-radius: 16px;
 
     width: 600px;
+
+    box-shadow: 2px 2px 4px -2px black;
 }
 
 .piuWriterProfilePic {
@@ -279,14 +281,16 @@ body {
     font-family: 'Poppins', sans-serif;
 
     padding-left: 11%;
-    padding-right: 2%;
-    width: 87%;
+    padding-right: 4%;
+    width: 85%;
+
 }
 
 
 .piu-text {
     font-family: 'Public Sans', sans-serif;
     font-size: larger;
+
 }
 
 

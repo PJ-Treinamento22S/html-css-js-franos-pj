@@ -1,28 +1,28 @@
 async function getData() {
     const response = await fetch("https://api.json-generator.com/templates/BQZ3wDrI6ts0/data?access_token=n7lhzp6uj5oi5goj0h2qify7mi2o8wrmebe3n5ad");
 
-    var pius = await response.json();
-//}
+    pius = await response.json();
+}
 
-//function createFeed(pius) {
+function createFeed() {
+
+    const piuFeed = document.querySelector(".feed");
+
+    while (piuFeed.firstChild) {
+        piuFeed.firstChild.remove()
+    }
 
     pius.forEach(piu => {
-        const {user, text, created_at} = piu;
+        const {id: piu_id, user, text, created_at} = piu;
         const {username, first_name, last_name, email, photo} = user;
 
-        const piuFeed = document.querySelector(".feed");
-        let piuContainer = createPiu(username, first_name, last_name, photo, text, created_at);
+        let piuContainer = createPiu(piu_id, username, first_name, last_name, photo, text, created_at);
 
         piuFeed.appendChild(piuContainer);
     })
-
 }
 
-//const milliseconds = 500;
-//const wait = (milliseconds) => new Promise<void> (() => setTimeout(createFeed(pius), milliseconds));
-
-
-function createPiu(username, first_name, last_name, photo, text, created_at) {
+function createPiu(piu_id, username, first_name, last_name, photo, text, created_at) {
     
     // Criacao dos elementos
     const piuContainer = document.createElement("div");
@@ -36,13 +36,14 @@ function createPiu(username, first_name, last_name, photo, text, created_at) {
     const piuText = document.createElement("p");
     const piuInteractionsContainer = document.createElement("div");
     const piuLikeContainer = document.createElement("div");
-    const piuLikeIcon = document.createElement("button");
+    const piuLikeIcon = document.createElement("img");
     const piuLikeCounter = document.createElement("p");
     const piuSaveIcon = document.createElement("img");
-    const piuDeleteIcon = document.createElement("img");
+    const piuDeleteIcon = document.createElement("input");
 
     // Associacao de cada elemento a uma classe
     piuContainer.classList.add("piu-container");
+    piuContainer.setAttribute('id', piu_id)
     piuInfoContainer.classList.add("piu-info-container");
     piuInfoSubcontainer.classList.add("piu-info-subcontainer");
     userPhoto.classList.add("user-photo");
@@ -84,19 +85,33 @@ function createPiu(username, first_name, last_name, photo, text, created_at) {
     }
     
 
-
     realnameText.innerText = first_name + " " + last_name;
     usernameText.innerText = "@" + username;
     piuText.innerText = text;
 
     timeElapsed.innerText = determineTimeElapsed(created_at);
 
-    piuLikeIcon.src = "../Images/notLikedIcon.svg"
-    piuLikeCounter.innerText = "0"
-    piuSaveIcon.src = "../Images/saveIcon.svg"
-    piuDeleteIcon.src = "../Images/deleteIcon.svg"
+    piuLikeIcon.src = "../Images/notLikedIcon.svg";
+    piuLikeCounter.innerText = "0";
+    piuSaveIcon.src = "../Images/saveIcon.svg";
+    piuDeleteIcon.type = "image";
+    piuDeleteIcon.src = "../Images/deleteIcon.svg";
+    piuDeleteIcon.onclick = () => {deletar_piu(piu_id)};
 
     return piuContainer;
+}
+
+
+function deletar_piu(piu_id) {
+
+    // Jeito ineficiente, mas funciona
+    for (let [i, piu] of pius.entries()) {
+        if (piu.id === piu_id) {
+          pius.splice(i, 1);
+        }
+    }
+
+    change = true;
 }
 
 
@@ -177,13 +192,39 @@ botaoPostar.addEventListener("click", () => {
 
 function postaPiu() {
 
-    let piu_escrito = document.getElementById("piuForm");
+    const piu_escrito = document.getElementById("piuForm");
+    
+    const envio = {
+        "id": "000a",
+        "user": {
+            "id": "000b",
+            "username": "franos",
+            "first_name": "Francisco",
+            "last_name": "Mariani",
+            "email": "franciscomariani@usp.br",
+            "photo": ""
+        },
+        "text": piu_escrito.elements[0].value,
+        "created_at": new Date().toJSON(),
+        "updated_at": new Date().toJSON()
+    }
 
-    const piuFeed = document.querySelector(".feed");
-    let piuContainer = createPiu("franos", "Francisco", "Mariani", "", piu_escrito.elements[0].value, Date.now());
+    pius.unshift(envio);
 
-    piuFeed.prepend(piuContainer);
+    piu_escrito.reset();
+
+    change = true;
 }
 
 
+var pius;
+var change = true;
+
 getData();
+
+setInterval(() => {
+    if (change === true) {
+        createFeed();
+        change = false;
+    }
+}, 200);
