@@ -1,18 +1,25 @@
 async function getData() {
     const response = await fetch("https://api.json-generator.com/templates/BQZ3wDrI6ts0/data?access_token=n7lhzp6uj5oi5goj0h2qify7mi2o8wrmebe3n5ad");
 
-    const pius = await response.json();
+    var pius = await response.json();
+//}
 
-    console.log("oi")
-    console.log(pius)
+//function createFeed(pius) {
 
     pius.forEach(piu => {
         const {user, text, created_at} = piu;
         const {username, first_name, last_name, email, photo} = user;
 
-        createPiu(username, first_name, last_name, photo, text, created_at);
+        const piuFeed = document.querySelector(".feed");
+        let piuContainer = createPiu(username, first_name, last_name, photo, text, created_at);
+
+        piuFeed.appendChild(piuContainer);
     })
+
 }
+
+//const milliseconds = 500;
+//const wait = (milliseconds) => new Promise<void> (() => setTimeout(createFeed(pius), milliseconds));
 
 
 function createPiu(username, first_name, last_name, photo, text, created_at) {
@@ -29,7 +36,7 @@ function createPiu(username, first_name, last_name, photo, text, created_at) {
     const piuText = document.createElement("p");
     const piuInteractionsContainer = document.createElement("div");
     const piuLikeContainer = document.createElement("div");
-    const piuLikeIcon = document.createElement("img");
+    const piuLikeIcon = document.createElement("button");
     const piuLikeCounter = document.createElement("p");
     const piuSaveIcon = document.createElement("img");
     const piuDeleteIcon = document.createElement("img");
@@ -51,13 +58,7 @@ function createPiu(username, first_name, last_name, photo, text, created_at) {
     piuSaveIcon.classList.add("piu-save-icon");
     piuDeleteIcon.classList.add("piu-delete-icon");
 
-    // Pega o elemento feed
-    const piuFeed = document.querySelector(".feed");
-
-
     // Implementa hierarquia entre elementos
-    piuFeed.appendChild(piuContainer);
-
     piuContainer.appendChild(piuInfoContainer);
     piuInfoContainer.appendChild(piuInfoSubcontainer);
     piuInfoSubcontainer.appendChild(userPhoto);
@@ -76,7 +77,14 @@ function createPiu(username, first_name, last_name, photo, text, created_at) {
 
 
     // Preenche elementos com os dados de cada piu
-    userPhoto.src = photo;
+    if (photo !== "") {
+        userPhoto.src = photo;
+    } else {
+        userPhoto.src = "../Images/defaultprofilepic.svg";
+    }
+    
+
+
     realnameText.innerText = first_name + " " + last_name;
     usernameText.innerText = "@" + username;
     piuText.innerText = text;
@@ -87,6 +95,8 @@ function createPiu(username, first_name, last_name, photo, text, created_at) {
     piuLikeCounter.innerText = "0"
     piuSaveIcon.src = "../Images/saveIcon.svg"
     piuDeleteIcon.src = "../Images/deleteIcon.svg"
+
+    return piuContainer;
 }
 
 
@@ -119,7 +129,7 @@ function determineTimeElapsed(created_at) {
 
     else {
         timeElapsed_minutes = Math.floor(timeElapsed_ms / minute_in_ms);
-        timeElapsed_str = timeElapsed_minutes.toString() + "h";
+        timeElapsed_str = timeElapsed_minutes.toString() + "m";
     }
 
     return timeElapsed_str;
@@ -159,10 +169,21 @@ botaoPostar.addEventListener("click", () => {
     }
 
     else {
-        // fazer essa parte
+        postaPiu();
     }
 
 });
+
+
+function postaPiu() {
+
+    let piu_escrito = document.getElementById("piuForm");
+
+    const piuFeed = document.querySelector(".feed");
+    let piuContainer = createPiu("franos", "Francisco", "Mariani", "", piu_escrito.elements[0].value, Date.now());
+
+    piuFeed.prepend(piuContainer);
+}
 
 
 getData();
