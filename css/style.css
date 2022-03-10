@@ -135,7 +135,7 @@ body {
     width: 600px;
 }
 
-.piuProfilePic {
+.piuWriterProfilePic {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -147,7 +147,7 @@ body {
     padding-top: 16px;
 }
 
-.piuMenu {
+.piuWriterMenu {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -157,7 +157,7 @@ body {
     width: 460px;
 }
 
-#piuTextArea {
+#piuWriterTextArea {
     font-family: 'Public Sans', sans-serif;
     color: white;
     /* color: #494444; */
@@ -176,7 +176,7 @@ body {
     width: 100%;
 }
 
-.bottomMenu {
+.piuWriterbottomMenu {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -186,7 +186,7 @@ body {
     margin-right: 8px;
 }
 
-.piuInteractions {
+.piuWriterInteractions {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -206,6 +206,131 @@ body {
     width: 108px;
 }
 
+.piu-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: baseline;
+
+    background-color: #F8F8F8;
+
+    border-radius: 16px;
+    width: 600px;
+
+    margin-bottom: 4%;
+    box-shadow: 1px 1px 4px -2px black;
+}
+
+.piu-info-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    font-family: 'Poppins', sans-serif;
+
+    padding-left: 4%;
+    padding-right: 2%;
+    width: 94%;
+}
+
+.piu-info-subcontainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.user-photo {
+    width: 28px;
+    height: auto;
+    border-radius: 50%;
+
+    margin-right: 12px;
+}
+
+.realname-text {
+    font-size: large;
+    font-weight: bold;
+
+    color: black;
+
+    margin-right: 12px;
+}
+
+.username-text {
+    color: #7E7979;
+
+    margin-right: 12px;
+}
+
+.time-elapsed {
+    color: #7E7979;
+    font-weight: bold;
+    font-size: large;
+}
+
+.piu-text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: baseline;
+
+    font-family: 'Poppins', sans-serif;
+
+    padding-left: 11%;
+    padding-right: 2%;
+    width: 87%;
+}
+
+
+.piu-text {
+    font-family: 'Public Sans', sans-serif;
+    font-size: larger;
+}
+
+
+.piu-interactions-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 40%;
+
+}
+
+.piu-like-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.piu-like-icon {
+    width: 24px;
+    height: auto;
+    margin-right: 8px;
+}
+
+.piu-like-counter {
+    font-family: 'Poppins', sans-serif;
+    color: #C287FA;
+
+    font-size: larger;
+}
+
+.piu-save-icon {
+    width: 20px;
+    height: auto;
+}
+
+.piu-delete-icon {
+    width: 20px;
+    height: auto;
+}
+
+
 #Post {
     font-family: 'Poppins', sans-serif;
     font-size: large;
@@ -220,7 +345,7 @@ body {
     box-shadow: 1px 1px 4px -2px black;
 }
 
-#contador {
+#charContador {
     font-family: 'Public Sans', sans-serif;
     color: #494444;
 }
