@@ -85,17 +85,6 @@ body {
     padding-bottom: 3%;
 }
 
-.placeHolderSearchText {
-    padding: 0%;
-    margin: 0%;
-    margin-left: 6%;
-
-    color: #afa9a9;
-
-    font-style: italic;
-    font-size: 90%;
-}
-
 .piupiuwerLogo {
     display: flex;
     justify-content: center;
@@ -195,7 +184,7 @@ body {
     align-items: center;
 
     width: 100px;
-    margin-right: 80px;
+    margin-right: 160px;
 }
 
 .piuSender {
@@ -352,6 +341,21 @@ body {
 #charContador {
     font-family: 'Public Sans', sans-serif;
     color: #494444;
+}
+
+
+#piuSearcherTextArea {
+    border: none;
+    outline: none;
+
+    padding: 0%;
+    margin: 0%;
+    margin-left: 5%;
+    width: 95%;
+
+    color: #4d4949;
+
+    font-style: italic;
 }
 
 

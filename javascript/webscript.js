@@ -10,7 +10,7 @@ async function getData() {
     change = true;
 }
 
-function createFeed() {
+function createFeed(pius_list) {
 
     const piuFeed = document.querySelector(".feed");
 
@@ -18,7 +18,7 @@ function createFeed() {
         piuFeed.firstChild.remove()
     }
 
-    pius.forEach(piu => {
+    pius_list.forEach(piu => {
         const {id: piu_id, user, text, created_at, likes} = piu;
         const {username, first_name, last_name, email, photo} = user;
 
@@ -84,6 +84,7 @@ function createPiu(piu_id, username, first_name, last_name, photo, text, created
 
 
     // Preenche elementos com os dados de cada piu
+
     if (photo !== "") {
         userPhoto.src = photo;
     } else {
@@ -113,7 +114,7 @@ function createPiu(piu_id, username, first_name, last_name, photo, text, created
 
 var toggle = true;
 function like_piu(piu_id, piuLikeIcon, piuLikeCounter) {
-let c;
+    let c;
 
     if (toggle == true) {
         piuLikeIcon.src = "../Images/LikedIcon.svg";
@@ -188,7 +189,7 @@ function determineTimeElapsed(created_at) {
 
 
 
-let piuSendoEscrito = document.getElementById("piuWriterTextArea");
+const piuSendoEscrito = document.getElementById("piuWriterTextArea");
 piuSendoEscrito.addEventListener("input", () => {
     let charCount = (piuSendoEscrito.value).length;
 
@@ -204,7 +205,7 @@ piuSendoEscrito.addEventListener("input", () => {
     }
 });
 
-let botaoPostar = document.getElementById("Post");
+const botaoPostar = document.getElementById("Post");
 botaoPostar.addEventListener("click", () => {
     let charCount = (piuSendoEscrito.value).length;
     
@@ -220,8 +221,25 @@ botaoPostar.addEventListener("click", () => {
 
     else {
         postaPiu();
+        document.getElementById("charContador").textContent = `0/140`;
     }
 
+});
+
+const search = document.getElementById('piuSearcher');
+search.addEventListener('submit', () => {
+    search_term = search.elements[0].value.toLowerCase();
+
+        pius_found = Array();
+
+        // Jeito muito ineficiente, mas funciona
+        for (let [i, piu] of pius.entries()) {
+            if (piu.user.username.toLowerCase().includes(search_term) || (piu.text.toLowerCase().includes(search_term))) {
+              pius_found.push(piu)
+            }
+        }
+
+        createFeed(pius_found);
 });
 
 
@@ -253,6 +271,7 @@ function postaPiu() {
 }
 
 
+
 var pius;
 var change = true;
 
@@ -260,7 +279,7 @@ getData();
 
 setInterval(() => {
     if (change === true) {
-        createFeed();
+        createFeed(pius);
         change = false;
     }
 }, 200);
