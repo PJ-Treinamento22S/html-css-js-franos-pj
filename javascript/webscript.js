@@ -2,6 +2,12 @@ async function getData() {
     const response = await fetch("https://api.json-generator.com/templates/BQZ3wDrI6ts0/data?access_token=n7lhzp6uj5oi5goj0h2qify7mi2o8wrmebe3n5ad");
 
     pius = await response.json();
+
+    for (let piu of pius) {
+        piu["likes"] = 0;
+    }
+
+    change = true;
 }
 
 function createFeed() {
@@ -13,16 +19,16 @@ function createFeed() {
     }
 
     pius.forEach(piu => {
-        const {id: piu_id, user, text, created_at} = piu;
+        const {id: piu_id, user, text, created_at, likes} = piu;
         const {username, first_name, last_name, email, photo} = user;
 
-        let piuContainer = createPiu(piu_id, username, first_name, last_name, photo, text, created_at);
+        let piuContainer = createPiu(piu_id, username, first_name, last_name, photo, text, created_at, likes);
 
         piuFeed.appendChild(piuContainer);
     })
 }
 
-function createPiu(piu_id, username, first_name, last_name, photo, text, created_at) {
+function createPiu(piu_id, username, first_name, last_name, photo, text, created_at, likes) {
     
     // Criacao dos elementos
     const piuContainer = document.createElement("div");
@@ -36,7 +42,7 @@ function createPiu(piu_id, username, first_name, last_name, photo, text, created
     const piuText = document.createElement("p");
     const piuInteractionsContainer = document.createElement("div");
     const piuLikeContainer = document.createElement("div");
-    const piuLikeIcon = document.createElement("img");
+    const piuLikeIcon = document.createElement("input");
     const piuLikeCounter = document.createElement("p");
     const piuSaveIcon = document.createElement("img");
     const piuDeleteIcon = document.createElement("input");
@@ -91,20 +97,49 @@ function createPiu(piu_id, username, first_name, last_name, photo, text, created
 
     timeElapsed.innerText = determineTimeElapsed(created_at);
 
+    piuLikeIcon.type = "image";
     piuLikeIcon.src = "../Images/notLikedIcon.svg";
-    piuLikeCounter.innerText = "0";
+    piuLikeIcon.onclick = () => {like_piu(piu_id, piuLikeIcon, piuLikeCounter)};
+
+    piuLikeCounter.innerText = likes.toString();
     piuSaveIcon.src = "../Images/saveIcon.svg";
     piuDeleteIcon.type = "image";
+
     piuDeleteIcon.src = "../Images/deleteIcon.svg";
     piuDeleteIcon.onclick = () => {deletar_piu(piu_id)};
 
     return piuContainer;
 }
 
+var toggle = true;
+function like_piu(piu_id, piuLikeIcon, piuLikeCounter) {
+let c;
+
+    if (toggle == true) {
+        piuLikeIcon.src = "../Images/LikedIcon.svg";
+        c = 1;
+
+        
+    } else {
+        piuLikeIcon.src = "../Images/notLikedIcon.svg";
+        c = -1;
+    }
+
+    for (let piu of pius) {
+        if (piu.id === piu_id) {
+            piu.likes += c;
+            piuLikeCounter.innerText = piu.likes.toString();
+        }
+    }
+
+    toggle = !toggle;
+    
+}
+
 
 function deletar_piu(piu_id) {
 
-    // Jeito ineficiente, mas funciona
+    // Jeito feio, mas funciona
     for (let [i, piu] of pius.entries()) {
         if (piu.id === piu_id) {
           pius.splice(i, 1);
@@ -206,7 +241,8 @@ function postaPiu() {
         },
         "text": piu_escrito.elements[0].value,
         "created_at": new Date().toJSON(),
-        "updated_at": new Date().toJSON()
+        "updated_at": new Date().toJSON(),
+        "likes": 0
     }
 
     pius.unshift(envio);
